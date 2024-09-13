@@ -16,15 +16,19 @@ final class Debt: Identifiable {
     var name: String
     var amount: Double
     var minimumPaymentAmount: Double
+    var paidOffAmount: Double
+    var payoffProgress: Double
     var interestRate: Double
     var interestRatePeriod: InterestRatePeriod
     var interestRatePeriodType: InterestRatePeriodType
     
-    init(type: DebtType, name: String, amount: Double, minimumPaymentAmount: Double, interestRate: Double, interestRatePeriod: InterestRatePeriod, interestRatePeriodType: InterestRatePeriodType) {
+    init(type: DebtType, name: String, amount: Double, minimumPaymentAmount: Double, paidOffAmount: Double, payoffProgress: Double, interestRate: Double, interestRatePeriod: InterestRatePeriod, interestRatePeriodType: InterestRatePeriodType) {
         self.type = type
         self.name = name
         self.amount = amount
         self.minimumPaymentAmount = minimumPaymentAmount
+        self.paidOffAmount = paidOffAmount
+        self.payoffProgress = payoffProgress
         self.interestRate = interestRate
         self.interestRatePeriod = interestRatePeriod
         self.interestRatePeriodType = interestRatePeriodType

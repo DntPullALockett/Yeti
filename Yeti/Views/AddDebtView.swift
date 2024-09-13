@@ -117,6 +117,8 @@ struct AddDebtView: View {
             name: name,
             amount: Double(amountOwed) ?? 0.0,
             minimumPaymentAmount: Double(minimumPayment) ?? 0.0,
+            paidOffAmount: 0.0,
+            payoffProgress: 0.0,
             interestRate: Double(interestRate) ?? 0.0,
             interestRatePeriod: .init(end: interestEndDate),
             interestRatePeriodType: interestRatePeriodType

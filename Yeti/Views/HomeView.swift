@@ -57,16 +57,38 @@ struct HomeView: View {
             ForEach(debts) { debt in
                 VStack(alignment: .leading) {
                     Text(debt.name)
+                        .font(.system(size: 18, weight: .bold))
                     Text(debt.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .font(.system(size: 14))
+                    ProgressView(value: debt.paidOffAmount == 0 ? 0 : debt.payoffProgress)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 10)
+
                 }
-            }
-            .onDelete { indexSet in
-                if let firstIndex = indexSet.first {
-                    let debt = debts[firstIndex]
-                    withAnimation {
-                        totalBalance -= debt.amount
+                .swipeActions {
+                    Button {
+                        withAnimation {
+                            debt.paidOffAmount += debt.minimumPaymentAmount
+                            totalBalance -= debt.minimumPaymentAmount
+                            debt.payoffProgress = (debt.paidOffAmount / debt.amount)
+                            if debt.payoffProgress == 1 {
+                                modelContext.delete(debt)
+                            }
+                        }
+                    } label: {
+                        Label("Make Minimum Payment", systemImage: "creditcard.fill")
+                            .tint(.accent)
                     }
-                    modelContext.delete(debts[firstIndex])
+                    
+                    Button(role: .destructive) {
+                        withAnimation {
+                            totalBalance -= debt.amount
+                        }
+                        modelContext.delete(debt)
+                    } label: {
+                        Label("Delete", systemImage: "trash.slash.fill")
+                    }
+                    
                     
                 }
             }
