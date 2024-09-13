@@ -13,11 +13,15 @@ struct YetiApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Debt.self,
+            Rollover.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            let container = try ModelContainer(for: schema, configurations: [modelConfiguration])
+            let defaultRollover = Rollover(amount: 0.0)
+            container.mainContext.insert(defaultRollover)
+            return container
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }

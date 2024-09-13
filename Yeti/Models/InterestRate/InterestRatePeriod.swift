@@ -8,6 +8,5 @@
 import Foundation
 
 struct InterestRatePeriod: Codable {
-    public var start: Date
     public var end: Date
 }

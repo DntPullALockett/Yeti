@@ -7,7 +7,12 @@
 
 import Foundation
 
-enum DebtType: Codable {
-    case creditCard
-    case loan
+enum DebtType: String, Codable, CaseIterable, Identifiable {
+    case creditCard = "Credit Card"
+    case auto = "Auto Loan"
+    case educational = "Educational Loan"
+    case personal = "Personal Loan"
+    case mortgage = "Mortgage"
+    
+    var id: Self { self }
 }

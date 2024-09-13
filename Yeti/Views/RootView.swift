@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct RootView: View {
-    
-    @Environment(\.modelContext) private var modelContext
-    @Query private var debts: [Debt]
-    @State private var showAddDebtView = false
 
+    @State private var showAddDebtView = false
+    
     var body: some View {
         NavigationView {
             TabView {
@@ -29,51 +26,21 @@ struct RootView: View {
                     BudgetView()
                 }
                 
-                Tab("Settings", systemImage: "ellipsis") {
+                Tab("Trophies", systemImage: "trophy.fill") {
+                    BudgetView()
+                }
+                
+                Tab("More", systemImage: "ellipsis") {
                     SettingsView()
                 }
-            }
-            .overlay(alignment: .bottom) {
-//                Color.black
-//                    .frame(height: 100)
-//                    .edgesIgnoringSafeArea(.bottom)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("Yeti")
-                        .font(.system(size: 32 , weight: .bold))
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showAddDebtView.toggle()
-                    } label: {
-                        if showAddDebtView {
-                            withAnimation {
-                                Image(systemName: "chevron.down")
-                                    .foregroundStyle(.black)
-                            }
-                        } else {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                Text("Add debt")
-                            }
-                            .foregroundStyle(.black)
-                        }
-                    }
-
+                        .font(.system(size: 28 , weight: .bold))
                 }
             }
-            .sheet(isPresented: $showAddDebtView, content: {
-                AddDebtView()
-            })
         }
-    }
-
-    private func addItem() {
-//        withAnimation {
-//            let newItem = Item(timestamp: Date())
-//            modelContext.insert(newItem)
-//        }
     }
 
     private func deleteItems(offsets: IndexSet) {

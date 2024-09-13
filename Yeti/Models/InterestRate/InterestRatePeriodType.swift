@@ -7,9 +7,11 @@
 
 import Foundation
 
-enum InterestRatePeriodType: String, Codable {
+enum InterestRatePeriodType: String, Codable, CaseIterable, Identifiable {
     case monthly
     case quarterly
     case semiannually
     case annually
+    
+    var id: Self { self }
 }
